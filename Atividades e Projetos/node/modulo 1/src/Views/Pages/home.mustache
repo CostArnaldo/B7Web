@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Página home</title>
+</head>
+<body>
+<h1>Titulo de página</h1>
+<hr/>
+Olá tudo bem?
+{{#showWelcome}}
+Seja bem-vindo!
+{{/showWelcome}}
+{{#showOld}}
+Como ta a saúde?
+{{/showOld}}
+<hr/>
+
+<h3> Produtos </h3>
+
+<ul>
+{{#products}}
+<li> 
+{{title}} - R$ {{price}}
+</li>
+{{/products}}
+<hr/>
+<h4>Produtos a partir de R$15</h4>
+<ul>
+{{#expensiveList}}
+<li> 
+{{title}} - R$ {{price}}
+</li>
+{{/expensiveList}}
+<hr/>
+{{#frasesDoDia}}
+{{^frasesDoDia}}  
+Não a titulos feios hoje.
+{{/frasesDoDia}}
+<li>
+{{.}}
+</li>
+{{/frasesDoDia}}
+{{>Partials/footer}}
