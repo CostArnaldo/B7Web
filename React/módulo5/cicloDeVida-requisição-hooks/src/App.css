@@ -1,0 +1,20 @@
+.listMovies {
+  display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 60px;
+    gap: 60px;
+    margin-left: 15px;
+  }
+  .botao {
+    width: 500px;
+    background-color: cadetblue;
+    border-radius: 12px;
+    font-size: 20px;
+    border-color: white;
+    margin: 30px;
+    
+  }
+  .imagem {
+    width: 300px;
+  }
+  
