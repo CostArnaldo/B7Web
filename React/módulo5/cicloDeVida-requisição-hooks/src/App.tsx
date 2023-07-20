@@ -4,22 +4,25 @@ import {Movie} from "./types/Movie"
 
 
 
+
 function App() {
   const [name, setName] = useState("");
   const [lastN, setLastN] = useState("");
   const [fullN, setFullN] = useState("");
-  
+ 
+  const [posts, setPosts] = useState([]);
+  const [loading, setloading] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const loadmovies = () => {
-    fetch("https://api.b7web.com.br/cinema/")
-    .then((response) => {
+  
+  const loadmovies = async () => {
+    setloading(true)
+    let response = await fetch("https://api.b7web.com.br/cinema/");
+    let json = await response.json();
+    setloading(false);
+    setMovies(json);
     
-        return response.json();
-    })
-    .then ((json) => {
-        setMovies(json);
-    });
-}
+    };
+
 
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {      
@@ -35,24 +38,32 @@ function App() {
   useEffect(() =>{
     setFullN(`${name} ${lastN}`);
   }, [name, lastN]);
-  return (
-    <div>
-      <input type= "text" placeholder='Seu NOME' value= {name} onChange={handleNameChange}/>
-      <input type= "text" placeholder='Seu SOBRENOME' value= {lastN} onChange={handleLastNChange}/>
-      <p>Nome Completo: {fullN}</p> 
-      <hr/>
-      <div>
-        <button className="botao" onClick={loadmovies}>Carregar Filmes</button>
 
-        Total de Filmes: {movies.length}
+  
+  
+  return (
+    <div className='conteudo'>
+      <input className='nome' type= "text" placeholder='Seu NOME' value= {name} onChange={handleNameChange}/>
+      <input className='sobrenome' type= "text" placeholder='Seu SOBRENOME' value= {lastN} onChange={handleLastNChange}/>
+      <p className='nomeC'>Nome Completo: {fullN}</p> <hr />
+      <button className="botao" onClick={loadmovies}>Carregar Filmes</button>
+      
+      <div className='movies'>
+      
+      {loading && <div className='load'>Carregando...</div>}
+        
+        {!loading && movies.length &&
+        <div>Total de Filmes: {movies.length}
+        
         <div  className='listMovies'>
+          
           {movies.map((item, index) => (
               <div key={index}>
                 <img src={item.avatar} className="imagem"/>
                 {item.titulo}
               </div>
           ))}
-        </div>
+        </div> </div> }
     </div>
     </div>
   )

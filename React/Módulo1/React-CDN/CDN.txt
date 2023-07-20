@@ -1,0 +1,1 @@
+Essa é uma forma de você importar o React com HTML e fazer testes pequenos. 
